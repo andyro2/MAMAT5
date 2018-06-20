@@ -1,5 +1,5 @@
-#ifndef _F
-#define _F
+#ifndef _FUNC_H_
+#define _FUNC_H_
 #include <map>
 #include <iostream>
 
@@ -10,7 +10,10 @@ using std::ostream;
 
 
 class func {
- 
+
+public:
+	func& operator<<(const int& x);
+	ostream& operator<<(ostream& ro, const func&);
 
 
  protected:

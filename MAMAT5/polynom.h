@@ -9,7 +9,15 @@ using namespace std;
 class polynom : public func {
  public:
  
-  void printcoefs(ostream&)  const ;
+	 polynom(int n, int* coefs);
+	 polynom& operator+(const polynom& p2); //sums up two polynoms
+	 polynom& operator-(const polynom& p2); //deducts two polynoms
+	 polynom& operator*(const polynom& p2); //multyplies two polynoms
+	 polynom& Derivative();
+	 polynom& Integral();
+
+	 ostream& operator<<(ostream& ro, const func& f);
+	void printcoefs(ostream&)  const ;
 
   protected:
 
