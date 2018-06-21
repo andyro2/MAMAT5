@@ -2,6 +2,7 @@
 #define _POLY_F
 
 #include "func.h"
+#include <cmath>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ using namespace std;
 class polynom : public func {
  public:
  
-	 polynom(int n = 0, int* coefs = { 0 });
+	 polynom(int n = 0, int* coefs = NULL );
 	 polynom& operator+(const polynom& p2); //sums up two polynoms
 	 polynom& operator-(const polynom& p2); //deducts two polynoms
 	 polynom& operator*(const polynom& p2); //multyplies two polynoms
@@ -20,10 +21,14 @@ class polynom : public func {
 	 polynom& operator=(const polynom& p2); // = operator
 	 ~polynom();
 
-	 bool operator!=(const polynom& p2);
+	 int Func_output(const int& x);
+//	 string Print_Func() const; //constant function of virtual print function.
+
+
+
+//	 bool operator!=(const polynom& p2);
 
 	 int* Copy_Coefs(const int* coefs, int n);
-//	 ostream& operator<<(ostream& ro, const func& f);
 	void printcoefs(ostream&)  const ;
 
   protected:

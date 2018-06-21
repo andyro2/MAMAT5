@@ -1,10 +1,23 @@
 #include "func.h"
-#include <vector>
-#include <algorithm>
+
 
 using std::cout;
 using std::endl;
 using std::vector;
+
+
+func& func::operator<<(const int& x) {
+
+	fmap_.insert(x, Func_Out(x));
+	return *this;
+}
+
+ostream& operator<<(ostream& ro, const func& f) {
+	ro << f.Print_Func();
+	return ro;
+}
+
+func::~func(){}
 
 void func::plot(ostream& os) const {
  

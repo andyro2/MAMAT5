@@ -1,6 +1,7 @@
 #include "polynom.h"
 
 polynom::polynom(int n, int* coefs) :n_(n), coefs_(Copy_Coefs(coefs,n)) {}
+
 int* polynom::Copy_Coefs(const int* coefs , int n) {
 
 	for (unsigned int i = 0; i <= n; i++)
@@ -9,8 +10,9 @@ int* polynom::Copy_Coefs(const int* coefs , int n) {
 
 polynom& polynom::operator+(const polynom& p2) {
 	int n =(n_ > p2.n_) ? n_ : p2.n_;
-	int* coefs = new int[n]; // how to make malloc or new????
-	for (unsigned int i = 0; i <= n; i++) {
+	int* coefs = new int[n + 1]; // n+1 elements for n degree [0..n]
+	unsigned int i;
+	for (i = 0; i <= n; i++) {
 		if(i > n_)
 			coefs[i] = p2.coefs_[i];
 		else if (i > p2.n_)
@@ -18,14 +20,19 @@ polynom& polynom::operator+(const polynom& p2) {
 		else
 			coefs[i] = coefs_[i] + p2.coefs_[i];
 	}
-	polynom p(n, coefs);
+	for (i = n; i >= 0; i--) { // search for first non zero coeficient
+		if (coefs_[i] != 0)
+			break;
+	}
+	polynom p(i, coefs);
 	return p;
 }
 
 polynom& polynom::operator-(const polynom& p2) { // this - p2
 	int n = (n_ > p2.n_) ? n_ : p2.n_;
-	int* coefs = new int[n]; 
-	for (unsigned int i = 0; i <= n; i++) {
+	int* coefs = new int[n + 1]; 
+	unsigned int i;
+	for ( i = 0; i <= n; i++) {
 		if (i > n_)
 			coefs[i] = (-1)*p2.coefs_[i];
 		else if (i > p2.n_)
@@ -33,26 +40,38 @@ polynom& polynom::operator-(const polynom& p2) { // this - p2
 		else
 			coefs[i] = coefs_[i] - p2.coefs_[i];
 	}
-	polynom p(n, coefs);
+	for (i = n; i >= 0; i--) { // search for first non zero coeficient
+		if (coefs_[i] != 0)
+			break;
+	}
+	polynom p(i, coefs);
 	return p;
 }
 
 polynom& polynom::operator*(const polynom& p2) {
 	int n = n_ + p2.n_;
-	int* coefs = new int[n]; 
-	for (unsigned int i = 0; i <= n_; i++) 
+	int* coefs = new int[n+1]; 
+	unsigned int i;
+	for (i = 0; i <= n; i++) // assign zeroes to all coefs as default
+		coefs[i] = 0;
+
+	for ( i = 0; i <= n_; i++) 
 	{
 		for (unsigned int j = 0; j <= p2.n_; j++)
 		{
-			coefs_[i + j] = coefs_[i] * p2.coefs_[j];
+			coefs_[i + j] += coefs_[i] * p2.coefs_[j];
 		}
 	}
-	polynom p(n, coefs);
+	for (i = n; i >= 0; i--) { // search for first non zero coeficient
+		if (coefs_[i] != 0)
+			break;
+	}
+	polynom p(i, coefs);
 	return p;
 }
 
 polynom& polynom::Derivative() {
-	int* coefs = new int[n_ - 1];
+	int* coefs = new int[n_];
 	for (unsigned int i = 1; i <= n_; i++) {
 			coefs[i - 1] = coefs_[i] * i;
 	}
@@ -61,7 +80,7 @@ polynom& polynom::Derivative() {
 }
 
 polynom& polynom::Integral() {
-	int* coefs = new int[n_ + 1];
+	int* coefs = new int[n_ + 2];
 	coefs[0] = 0;
 	for (unsigned int i = 1; i <= n_; i++) {
 		coefs[i] = coefs_[i - 1] / i;
@@ -69,12 +88,7 @@ polynom& polynom::Integral() {
 	polynom p(n_ + 1, coefs);
 	return p;
 }
-/*
-ostream& polynom::operator<<(ostream& ro, const func& f) {
 
-}
-
-*/
 void polynom::printcoefs(ostream& os)  const {
   int allZero = 1;
   for (int i = n_ ; i>=0; i--) {
@@ -113,6 +127,19 @@ void polynom::printcoefs(ostream& os)  const {
 }
 
 
+int polynom::Func_output(const int& x)
+{
+	int sum = 0;
+	for (unsigned int i = 0; i <= n_; i++)
+		sum += coefs_[i] * pow(x, i);
+	return sum;
+}
+/*
+ string polynom::Print_Func() const {
+	
+}
+*/
+
 polynom::polynom(const polynom& rhs) : n_(rhs.n_), coefs_(Copy_Coefs(rhs.coefs_, rhs.n_)) {}
 
 polynom& polynom::operator=(const polynom& p2) {
@@ -125,6 +152,7 @@ polynom& polynom::operator=(const polynom& p2) {
 	return *this;
 }
 
+/*
 bool polynom::operator!=(const polynom& p2) {
 	if (n_ != p2.n_)
 		return false;
@@ -136,7 +164,7 @@ bool polynom::operator!=(const polynom& p2) {
 	}
 
 	return true;
-}
+}*/
 
 polynom::~polynom() {
 	if (coefs_) delete[] coefs_;
