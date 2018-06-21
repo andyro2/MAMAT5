@@ -118,6 +118,8 @@
     <ClCompile Include="func.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="polynom.cpp" />
+    <ClCompile Include="ratfunc.cpp" />
+    <ClCompile Include="ratfunc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="func.h" />

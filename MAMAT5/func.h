@@ -13,7 +13,7 @@ class func {
 
 public:
 	func& operator<<(const int& x);
-	ostream& operator<<(ostream& ro, const func&);
+//	ostream& operator<<(ostream& ro, const func&);
 
 
  protected:
