@@ -16,8 +16,13 @@ public:
 	ratfunc operator*(const ratfunc& r2); //multyplies two rational finctions
 	ratfunc Derivative();
 
-//	ostream& operator<<(ostream& ro, const func& f);
-	void printcoefs(ostream&)  const;
+	~ratfunc(); // distructor
+	ratfunc& operator=(const ratfunc& rhs); // operator =
+	ratfunc(const ratfunc& rhs); // copy constructor
+
+
+	int Func_output(const int& x);
+	void Print_Func(ostream& ro) const;
 
 protected:
 

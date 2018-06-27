@@ -34,3 +34,59 @@ ratfunc ratfunc::Derivative() {
 	ratfunc r(new_den, new_num);
 	return r;
 }
+
+int ratfunc::Func_output(const int& x)
+{
+	//mathexception excep = mathexception("divide by zero");
+	int result1 = numerator_.Func_output(x);
+	int result2 = denominator_.Func_output(x);
+	//if (!result2)
+	//{
+	//	throw excep;
+	//}
+
+	return result1 / result2;
+}
+
+ratfunc::~ratfunc() {
+	denominator_.~polynom();
+	numerator_.~polynom();
+}
+
+ratfunc::ratfunc(const ratfunc& rhs) {
+	numerator_ = rhs.numerator_;
+	denominator_ = rhs.denominator_;
+	fmap_ = rhs.fmap_;
+}
+
+ratfunc& ratfunc::operator=(const ratfunc& rhs) {
+	if (this != &rhs) {
+	numerator_ = rhs.numerator_;
+	denominator_ = rhs.denominator_;
+	fmap_ = rhs.fmap_;
+	}
+}
+
+void ratfunc::Print_Func(ostream& ro) const
+{
+	ro << "(";
+	numerator_.printcoefs(ro);
+	ro << ")";
+	ro << "/";
+	cout << "(";
+	denominator_.printcoefs(ro);
+	ro << ")";
+	ro << endl;
+	
+	ro << "Derivative: ";
+	cout << "(";
+	this->Derivative.numerator_.printcoefs(ro);
+	ro << ")";
+	ro << "/";
+	ro << "(";
+	this->Derivative.denominator_.printcoefs(ro);
+	cout << ")";
+	ro << endl;
+	if (!(fmap_.empty()))
+		plot(ro);
+}

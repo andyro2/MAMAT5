@@ -160,14 +160,18 @@ int polynom::Func_output(const int& x)
 }
 
 
-polynom::polynom(const polynom& rhs) : n_(rhs.n_) { Copy_Coefs(rhs.coefs_, rhs.n_); }
+polynom::polynom(const polynom& rhs) : n_(rhs.n_) { 
+Copy_Coefs(rhs.coefs_, rhs.n_);
+fmap_ = rhs.fmap_;
+}
 
 polynom& polynom::operator=(const polynom& p2) {
 	if (this != &p2)
 	{
 		n_ = p2.n_;
-		if (coefs_) delete [] coefs_; // not sure works
+		if (coefs_) delete [] coefs_; // if not null
 		Copy_Coefs(p2.coefs_, p2.n_);
+		fmap_ = p2.fmap_;
 	}
 	return *this;
 }
