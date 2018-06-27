@@ -70,7 +70,7 @@ polynom& polynom::operator*(const polynom& p2) {
 	return p;
 }
 
-polynom& polynom::Derivative() {
+polynom& polynom::Derivative() const {
 	int* coefs = new int[n_];
 	for (unsigned int i = 1; i <= n_; i++) {
 			coefs[i - 1] = coefs_[i] * i;
@@ -79,7 +79,7 @@ polynom& polynom::Derivative() {
 	return p;
 }
 
-polynom& polynom::Integral() {
+polynom& polynom::Integral() const {
 	int* coefs = new int[n_ + 2];
 	coefs[0] = 0;
 	for (unsigned int i = 1; i <= n_; i++) {
@@ -95,28 +95,28 @@ void polynom::printcoefs(ostream& os)  const {
     if (coefs_[i]>0) {
       allZero = 0;
       if(i!=n_){
-	os << "+";
+		os << "+";
       }
       if (coefs_[i]!=1 || i==0){
-	os << coefs_[i];
+		os << coefs_[i];
       }
       if(i>0) {
-	os << "x";
-	if (i>1) 
-	  os << "^" << i ;
-      }
+		os << "x";
+		if (i>1) 
+			os << "^" << i ;
+	  }
     }
     else if(coefs_[i]<0) {
       allZero = 0;
       if (coefs_[i]!=-1 || i==0){
-	os << coefs_[i];
+		os << coefs_[i];
       }
       else 
-	os << "-";
+		os << "-";
       if(i>0) {
-	os << "x";
-	if (i>1) 
-	  os << "^" << i ;
+		os << "x";
+		if (i>1) 
+		os << "^" << i ;
       }
     }
     else if(i==0 && allZero == 1){ //zero polynom
@@ -134,11 +134,23 @@ int polynom::Func_output(const int& x)
 		sum += coefs_[i] * pow(x, i);
 	return sum;
 }
-/*
- string polynom::Print_Func() const {
-	
+
+ void polynom::Print_Func(ostream& ro) const {
+	 this->printcoefs(ro);
+	 ro << endl;
+	 ro << "Derivative: ";
+	 this->Derivative().printcoefs(ro);
+	 // polynom derivative = this.Derivative;
+	 // derivative.printcoefs(ro);
+	 ro << endl;
+	 ro << "Integral: ";
+	 this->Integral().printcoefs(ro);
+	 ro << "+C" << endl;
+	 this->Derivative().~polynom();
+	 this->Integral().~polynom();
+	 return;
 }
-*/
+
 
 polynom::polynom(const polynom& rhs) : n_(rhs.n_), coefs_(Copy_Coefs(rhs.coefs_, rhs.n_)) {}
 

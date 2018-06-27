@@ -17,6 +17,8 @@ public:
 	func& operator<<(const int& x); // asign value of x into f(x)
 	friend ostream& operator<<(ostream& ro, const func& f);
 
+	virtual ~func();
+
  protected:
    
   
@@ -25,10 +27,10 @@ public:
   map<int,int> fmap_; //holds inputs and corresponding outputs
   void plot(ostream& os) const ; //plot fmap_
 
-  virtual ~func();
+ 
   virtual int Func_output(const int& x) = 0; // pure virtual
  // virtual string Print_Func() = 0; //non constant function of virtual print function.
- // virtual string Print_Func() const = 0; //constant function of virtual print function.
+  virtual void Print_Func(ostream& ro) const = 0; //constant function of virtual print function.
 };
 
 

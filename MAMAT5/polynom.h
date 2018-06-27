@@ -14,15 +14,15 @@ class polynom : public func {
 	 polynom& operator+(const polynom& p2); //sums up two polynoms
 	 polynom& operator-(const polynom& p2); //deducts two polynoms
 	 polynom& operator*(const polynom& p2); //multyplies two polynoms
-	 polynom& Derivative();
-	 polynom& Integral();
+	 polynom& Derivative() const;
+	 polynom& Integral() const;
 
 	 polynom(const polynom& rhs); // copy constructor
 	 polynom& operator=(const polynom& p2); // = operator
 	 ~polynom();
 
 	 int Func_output(const int& x);
-//	 string Print_Func() const; //constant function of virtual print function.
+	 void Print_Func(ostream& ro) const; //constant function of virtual print function.
 
 
 

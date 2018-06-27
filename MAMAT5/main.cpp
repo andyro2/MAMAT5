@@ -42,7 +42,7 @@ int main() {
       delete [] coefs;
     }
    
-    if (!strcmp(func_cmd, "SetCompFunc")) {
+    /*if (!strcmp(func_cmd, "SetCompFunc")) {
       func* outer;
       func* inner;
       char* outer_name = strtok(func_value, ",");
@@ -55,7 +55,7 @@ int main() {
       catch(exception& e){
 	cout<<"Error SetCompFunc:"<< e.what()<< endl;
       }
-    }
+    }*/
     if (!strcmp(func_cmd, "AddPoint")) {
       token = strtok(func_value, ",");
       try{
@@ -93,8 +93,8 @@ int main() {
 	case '*':
 	  func_list[func_name]=new polynom((*f1)*(*f2));
 	  break;
-	case '/':
-	  func_list[func_name]=new ratfunc(*f2,*f1);
+	//case '/':
+	//  func_list[func_name]=new ratfunc(*f2,*f1);
 	}
       }
       catch(exception& e){
@@ -102,7 +102,7 @@ int main() {
       }
     }
     
-    if (!strcmp(func_cmd, "MathRatFunc")) {
+    /*if (!strcmp(func_cmd, "MathRatFunc")) {
       char Op;
       ratfunc *f1,*f2;
       try{
@@ -129,7 +129,7 @@ int main() {
       catch(exception& e){
 	cout<<"Error MathRatFunc:"<< e.what()<< endl;
       }
-    }
+    }*/
  
     if (!strcmp(func_cmd, "Print")) {
       if (strcmp(func_name, "All")){//not all
@@ -143,7 +143,7 @@ int main() {
       else{
 	for (map<string, func*>::iterator it = func_list.begin();
 	     it != func_list.end(); ++it) {
-	  cout << it->first<<"(x)="<< *(it->second) <<endl;
+	  cout << it->first<<"(x)="<< *(it->second) <<endl; //first-string, second-func*
 	}
       }
     }

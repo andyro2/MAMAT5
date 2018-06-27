@@ -8,16 +8,18 @@ using std::vector;
 
 func& func::operator<<(const int& x) {
 
-	fmap_.insert(x, Func_Out(x));
+	fmap_.insert(x, Func_output(x));
 	return *this;
 }
 
 ostream& operator<<(ostream& ro, const func& f) {
-	ro << f.Print_Func();
+	//ro << f.Print_Func();
+	f.Print_Func(ro);
+	f.plot(ro); //Print the xy axis
 	return ro;
 }
 
-func::~func(){}
+func::~func() {}
 
 void func::plot(ostream& os) const {
  
