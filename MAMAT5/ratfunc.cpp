@@ -27,6 +27,14 @@ ratfunc ratfunc:: operator*(const ratfunc& r2) const{
 	return r;
 }
 
+ratfunc ratfunc:: operator/(const ratfunc& r2) const { // r1 / r2
+	polynom new_num, new_den;
+	new_num = numerator_ * r2.denominator_;
+	new_den = denominator_ * r2.numerator_;
+	ratfunc r(new_den, new_num);
+	return r;
+}
+
 ratfunc ratfunc::Derivative() const {
 	polynom new_num, new_den;
 	new_num = numerator_.Derivative() * denominator_ - denominator_.Derivative() * numerator_;

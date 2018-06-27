@@ -11,9 +11,10 @@ class ratfunc : public func {
 public:
 
 	ratfunc(polynom p, polynom q);
-	ratfunc operator+(const ratfunc& r2) const; //sums up two rational finctions
-	ratfunc operator-(const ratfunc& r2) const; //deducts two rational finctions
-	ratfunc operator*(const ratfunc& r2) const; //multyplies two rational finctions
+	ratfunc operator+(const ratfunc& r2) const; //sums up two rational functions
+	ratfunc operator-(const ratfunc& r2) const; //deducts two rational functions
+	ratfunc operator*(const ratfunc& r2) const; //multyplies two rational functions
+	ratfunc operator/(const ratfunc& r2) const; //devides two rational functions
 	ratfunc Derivative() const;
 
 	~ratfunc(); // distructor

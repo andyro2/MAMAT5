@@ -81,7 +81,7 @@ polynom polynom::operator*(const polynom& p2) const {
 polynom polynom::Derivative() const {
 	int* coefs = new int[n_];
 	for (unsigned int i = 1; i <= n_; i++) {
-			coefs[i - 1] = coefs_[i] * i;
+			coefs[i - 1] = coefs_[i] * (int)i;
 	}
 	polynom p(n_ -1, coefs);
 	delete[] coefs;
@@ -92,7 +92,7 @@ polynom polynom::Integral() const {
 	int* coefs = new int[n_ + 2];
 	coefs[0] = 0;
 	for (unsigned int i = 1; i <= n_; i++) {
-		coefs[i] = coefs_[i - 1] / i;
+		coefs[i] = coefs_[i - 1] / (int)i;
 	}
 	polynom p(n_ + 1, coefs);
 	delete[] coefs;
