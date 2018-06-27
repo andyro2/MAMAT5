@@ -3,7 +3,7 @@
 
 ratfunc::ratfunc(polynom p, polynom q) : numerator_(q), denominator_(p) {}
 
-ratfunc ratfunc:: operator+(const ratfunc& r2) {
+ratfunc ratfunc:: operator+(const ratfunc& r2) const {
 	polynom new_num, new_den;
 	new_num = numerator_ * r2.denominator_ + denominator_*r2.numerator_;
 	new_den = denominator_ * r2.denominator_;
@@ -11,7 +11,7 @@ ratfunc ratfunc:: operator+(const ratfunc& r2) {
 	return r;
 }
 
-ratfunc ratfunc:: operator-(const ratfunc& r2) { // this - p2
+ratfunc ratfunc:: operator-(const ratfunc& r2) const{ // this - p2
 	polynom new_num, new_den;
 	new_num = numerator_ * r2.denominator_ - denominator_ * r2.numerator_;
 	new_den = denominator_ * r2.denominator_;
@@ -19,7 +19,7 @@ ratfunc ratfunc:: operator-(const ratfunc& r2) { // this - p2
 	return r;
 }
 
-ratfunc ratfunc:: operator*(const ratfunc& r2) {
+ratfunc ratfunc:: operator*(const ratfunc& r2) const{
 	polynom new_num, new_den;
 	new_num = numerator_ * r2.numerator_;
 	new_den = denominator_ * r2.denominator_;
@@ -27,7 +27,7 @@ ratfunc ratfunc:: operator*(const ratfunc& r2) {
 	return r;
 }
 
-ratfunc ratfunc::Derivative() {
+ratfunc ratfunc::Derivative() const {
 	polynom new_num, new_den;
 	new_num = numerator_.Derivative() * denominator_ - denominator_.Derivative() * numerator_;
 	new_den = denominator_ * denominator_;
@@ -65,10 +65,12 @@ ratfunc& ratfunc::operator=(const ratfunc& rhs) {
 	denominator_ = rhs.denominator_;
 	fmap_ = rhs.fmap_;
 	}
+	return *this;
 }
 
 void ratfunc::Print_Func(ostream& ro) const
 {
+	ratfunc der = Derivative();
 	ro << "(";
 	numerator_.printcoefs(ro);
 	ro << ")";
@@ -80,11 +82,11 @@ void ratfunc::Print_Func(ostream& ro) const
 	
 	ro << "Derivative: ";
 	cout << "(";
-	this->Derivative.numerator_.printcoefs(ro);
+	der.numerator_.printcoefs(ro);
 	ro << ")";
 	ro << "/";
 	ro << "(";
-	this->Derivative.denominator_.printcoefs(ro);
+	der.denominator_.printcoefs(ro);
 	cout << ")";
 	ro << endl;
 	if (!(fmap_.empty()))

@@ -13,7 +13,7 @@ void polynom::Copy_Coefs(const int* coefs , unsigned int n) {
 	return;
 }
 
-polynom polynom::operator+(const polynom& p2) {
+polynom polynom::operator+(const polynom& p2) const {
 	unsigned int n =(n_ > p2.n_) ? n_ : p2.n_;
 	int* coefs = new int[n + 1]; // n+1 elements for n degree [0..n]
 	unsigned int i;
@@ -34,7 +34,7 @@ polynom polynom::operator+(const polynom& p2) {
 	return p;
 }
 
-polynom polynom::operator-(const polynom& p2) { // this - p2
+polynom polynom::operator-(const polynom& p2) const { // this - p2
 	unsigned int n = (n_ > p2.n_) ? n_ : p2.n_;
 	int* coefs = new int[n + 1]; 
 	unsigned int i;
@@ -55,7 +55,7 @@ polynom polynom::operator-(const polynom& p2) { // this - p2
 	return p;
 }
 
-polynom polynom::operator*(const polynom& p2) {
+polynom polynom::operator*(const polynom& p2) const {
 	unsigned int n = n_ + p2.n_;
 	int* coefs = new int[n+1]; 
 	unsigned int i;
