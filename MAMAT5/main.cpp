@@ -55,7 +55,7 @@ int main() {
       catch(exception& e){
 	cout<<"Error SetCompFunc:"<< e.what()<< endl;
       }
-    }*/
+    }
     if (!strcmp(func_cmd, "AddPoint")) {
       token = strtok(func_value, ",");
       try{
@@ -72,7 +72,7 @@ int main() {
 	  cout<<"Error AddPoint:"<< e.what()<< endl;
 	}
       }
-    }
+    }*/
     
     if (!strcmp(func_cmd, "MathPolynom")) {
       char *Op;
@@ -143,7 +143,7 @@ int main() {
       else{
 	for (map<string, func*>::iterator it = func_list.begin();
 	     it != func_list.end(); ++it) {
-	  cout << it->first<<"(x)="<< *(it->second) <<endl; //first-string, second-func*
+	  cout << it->first<<"(x)="<< *(it->second) <<endl;
 	}
       }
     }

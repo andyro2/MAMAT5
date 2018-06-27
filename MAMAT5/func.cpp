@@ -13,7 +13,6 @@ func& func::operator<<(const int& x) {
 }
 
 ostream& operator<<(ostream& ro, const func& f) {
-	//ro << f.Print_Func();
 	f.Print_Func(ro);
 	f.plot(ro); //Print the xy axis
 	return ro;
@@ -22,7 +21,9 @@ ostream& operator<<(ostream& ro, const func& f) {
 func::~func() {}
 
 void func::plot(ostream& os) const {
- 
+
+	if (fmap_.empty())
+		return;
   vector<int> sortImage;
     
   sortImage.clear();
