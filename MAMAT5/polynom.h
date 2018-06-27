@@ -10,12 +10,12 @@ using namespace std;
 class polynom : public func {
  public:
  
-	 polynom(int n = 0, int* coefs = NULL );
-	 polynom& operator+(const polynom& p2); //sums up two polynoms
-	 polynom& operator-(const polynom& p2); //deducts two polynoms
-	 polynom& operator*(const polynom& p2); //multyplies two polynoms
-	 polynom& Derivative() const;
-	 polynom& Integral() const;
+	 polynom(unsigned int n = 0, int* coefs = NULL );
+	 polynom operator+(const polynom& p2); //sums up two polynoms
+	 polynom operator-(const polynom& p2); //deducts two polynoms
+	 polynom operator*(const polynom& p2); //multyplies two polynoms
+	 polynom Derivative() const;
+	 polynom Integral() const;
 
 	 polynom(const polynom& rhs); // copy constructor
 	 polynom& operator=(const polynom& p2); // = operator
@@ -28,12 +28,12 @@ class polynom : public func {
 
 //	 bool operator!=(const polynom& p2);
 
-	 int* Copy_Coefs(const int* coefs, int n);
+	 void Copy_Coefs(const int* coefs, unsigned int n);
 	void printcoefs(ostream&)  const ;
 
   protected:
 	  
-  int n_; //order of the polynom
+  unsigned int n_; //order of the polynom
   int* coefs_; //coefficients 
 };
 

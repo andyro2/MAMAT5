@@ -11,10 +11,10 @@ class ratfunc : public func {
 public:
 
 	ratfunc(polynom p, polynom q);
-	ratfunc& operator+(const ratfunc& r2); //sums up two rational finctions
-	ratfunc& operator-(const ratfunc& r2); //deducts two rational finctions
-	ratfunc& operator*(const ratfunc& r2); //multyplies two rational finctions
-	ratfunc& Derivative();
+	ratfunc operator+(const ratfunc& r2); //sums up two rational finctions
+	ratfunc operator-(const ratfunc& r2); //deducts two rational finctions
+	ratfunc operator*(const ratfunc& r2); //multyplies two rational finctions
+	ratfunc Derivative();
 
 //	ostream& operator<<(ostream& ro, const func& f);
 	void printcoefs(ostream&)  const;

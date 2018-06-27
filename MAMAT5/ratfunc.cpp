@@ -3,7 +3,7 @@
 
 ratfunc::ratfunc(polynom p, polynom q) : numerator_(q), denominator_(p) {}
 
-ratfunc& ratfunc:: operator+(const ratfunc& r2) {
+ratfunc ratfunc:: operator+(const ratfunc& r2) {
 	polynom new_num, new_den;
 	new_num = numerator_ * r2.denominator_ + denominator_*r2.numerator_;
 	new_den = denominator_ * r2.denominator_;
@@ -11,7 +11,7 @@ ratfunc& ratfunc:: operator+(const ratfunc& r2) {
 	return r;
 }
 
-ratfunc& ratfunc:: operator-(const ratfunc& r2) { // this - p2
+ratfunc ratfunc:: operator-(const ratfunc& r2) { // this - p2
 	polynom new_num, new_den;
 	new_num = numerator_ * r2.denominator_ - denominator_ * r2.numerator_;
 	new_den = denominator_ * r2.denominator_;
@@ -19,7 +19,7 @@ ratfunc& ratfunc:: operator-(const ratfunc& r2) { // this - p2
 	return r;
 }
 
-ratfunc& ratfunc:: operator*(const ratfunc& r2) {
+ratfunc ratfunc:: operator*(const ratfunc& r2) {
 	polynom new_num, new_den;
 	new_num = numerator_ * r2.numerator_;
 	new_den = denominator_ * r2.denominator_;
@@ -27,7 +27,7 @@ ratfunc& ratfunc:: operator*(const ratfunc& r2) {
 	return r;
 }
 
-ratfunc& ratfunc::Derivative() {
+ratfunc ratfunc::Derivative() {
 	polynom new_num, new_den;
 	new_num = numerator_.Derivative() * denominator_ - denominator_.Derivative() * numerator_;
 	new_den = denominator_ * denominator_;

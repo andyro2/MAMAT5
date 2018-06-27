@@ -1,15 +1,20 @@
 #include "polynom.h"
 
-polynom::polynom(int n, int* coefs) :n_(n), coefs_(Copy_Coefs(coefs,n)) {}
+polynom::polynom(unsigned int n, int* coefs) :n_(n) { Copy_Coefs(coefs, n); }
 
-int* polynom::Copy_Coefs(const int* coefs , int n) {
-
+void polynom::Copy_Coefs(const int* coefs , unsigned int n) {
+	if (coefs == NULL) {
+		coefs_ = NULL;
+		return;
+	}
+	coefs_ = new int[n + 1];
 	for (unsigned int i = 0; i <= n; i++)
 		coefs_[i] = coefs[i];
+	return;
 }
 
-polynom& polynom::operator+(const polynom& p2) {
-	int n =(n_ > p2.n_) ? n_ : p2.n_;
+polynom polynom::operator+(const polynom& p2) {
+	unsigned int n =(n_ > p2.n_) ? n_ : p2.n_;
 	int* coefs = new int[n + 1]; // n+1 elements for n degree [0..n]
 	unsigned int i;
 	for (i = 0; i <= n; i++) {
@@ -25,11 +30,12 @@ polynom& polynom::operator+(const polynom& p2) {
 			break;
 	}
 	polynom p(i, coefs);
+	delete[] coefs;
 	return p;
 }
 
-polynom& polynom::operator-(const polynom& p2) { // this - p2
-	int n = (n_ > p2.n_) ? n_ : p2.n_;
+polynom polynom::operator-(const polynom& p2) { // this - p2
+	unsigned int n = (n_ > p2.n_) ? n_ : p2.n_;
 	int* coefs = new int[n + 1]; 
 	unsigned int i;
 	for ( i = 0; i <= n; i++) {
@@ -45,11 +51,12 @@ polynom& polynom::operator-(const polynom& p2) { // this - p2
 			break;
 	}
 	polynom p(i, coefs);
+	delete[] coefs;
 	return p;
 }
 
-polynom& polynom::operator*(const polynom& p2) {
-	int n = n_ + p2.n_;
+polynom polynom::operator*(const polynom& p2) {
+	unsigned int n = n_ + p2.n_;
 	int* coefs = new int[n+1]; 
 	unsigned int i;
 	for (i = 0; i <= n; i++) // assign zeroes to all coefs as default
@@ -67,25 +74,28 @@ polynom& polynom::operator*(const polynom& p2) {
 			break;
 	}
 	polynom p(i, coefs);
+	delete[] coefs;
 	return p;
 }
 
-polynom& polynom::Derivative() const {
+polynom polynom::Derivative() const {
 	int* coefs = new int[n_];
 	for (unsigned int i = 1; i <= n_; i++) {
 			coefs[i - 1] = coefs_[i] * i;
 	}
 	polynom p(n_ -1, coefs);
+	delete[] coefs;
 	return p;
 }
 
-polynom& polynom::Integral() const {
+polynom polynom::Integral() const {
 	int* coefs = new int[n_ + 2];
 	coefs[0] = 0;
 	for (unsigned int i = 1; i <= n_; i++) {
 		coefs[i] = coefs_[i - 1] / i;
 	}
 	polynom p(n_ + 1, coefs);
+	delete[] coefs;
 	return p;
 }
 
@@ -131,7 +141,7 @@ int polynom::Func_output(const int& x)
 {
 	int sum = 0;
 	for (unsigned int i = 0; i <= n_; i++)
-		sum += coefs_[i] * pow(x, i);
+		sum += coefs_[i] *int(pow(x, i));
 	return sum;
 }
 
@@ -146,20 +156,18 @@ int polynom::Func_output(const int& x)
 	 ro << "Integral: ";
 	 this->Integral().printcoefs(ro);
 	 ro << "+C" << endl;
-	 this->Derivative().~polynom();
-	 this->Integral().~polynom();
 	 return;
 }
 
 
-polynom::polynom(const polynom& rhs) : n_(rhs.n_), coefs_(Copy_Coefs(rhs.coefs_, rhs.n_)) {}
+polynom::polynom(const polynom& rhs) : n_(rhs.n_) { Copy_Coefs(rhs.coefs_, rhs.n_); }
 
 polynom& polynom::operator=(const polynom& p2) {
 	if (this != &p2)
 	{
 		n_ = p2.n_;
 		if (coefs_) delete [] coefs_; // not sure works
-		coefs_ = Copy_Coefs(p2.coefs_, p2.n_);
+		Copy_Coefs(p2.coefs_, p2.n_);
 	}
 	return *this;
 }

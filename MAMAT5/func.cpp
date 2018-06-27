@@ -4,11 +4,11 @@
 using std::cout;
 using std::endl;
 using std::vector;
-
+using std::pair;
 
 func& func::operator<<(const int& x) {
 
-	fmap_.insert(x, Func_output(x));
+	fmap_.insert(pair<int,int>(x, Func_output(x)));
 	return *this;
 }
 
