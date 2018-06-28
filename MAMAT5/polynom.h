@@ -11,9 +11,9 @@ class polynom : public func {
  public:
  
 	 polynom(unsigned int n = 0, int* coefs = NULL );
-	 polynom operator+(const polynom& p2); //sums up two polynoms
-	 polynom operator-(const polynom& p2); //deducts two polynoms
-	 polynom operator*(const polynom& p2); //multyplies two polynoms
+	 polynom operator+(const polynom& p2) const; //sums up two polynoms
+	 polynom operator-(const polynom& p2) const; //deducts two polynoms
+	 polynom operator*(const polynom& p2) const; //multyplies two polynoms
 	 polynom Derivative() const;
 	 polynom Integral() const;
 

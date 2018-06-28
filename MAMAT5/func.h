@@ -29,7 +29,6 @@ public:
 
  
   virtual int Func_output(const int& x) = 0; // pure virtual
- // virtual string Print_Func() = 0; //non constant function of virtual print function.
   virtual void Print_Func(ostream& ro) const = 0; //constant function of virtual print function.
 };
 
